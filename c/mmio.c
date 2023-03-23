@@ -1,42 +1,32 @@
+#include "mmio.h"
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-
-// Memory address of the I/O register
-#define IOMEM_ADDRESS 0x41200000
-
-int main() {
+volatile unsigned int *mmio_init() {
     int memfd;
-    void *mmio;
-
+    mmio =0;
     // Open the /dev/mem device file
     memfd = open("/dev/mem", O_RDWR | O_SYNC);
 
     // Map the I/O register to the virtual memory space
     mmio = mmap(NULL, getpagesize(), PROT_READ | PROT_WRITE, MAP_SHARED, memfd, IOMEM_ADDRESS);
 
+    // Close the /dev/mem device file
+    close(memfd);
+
     if (mmio == MAP_FAILED) {
         perror("Failed to mmap");
         exit(EXIT_FAILURE);
     }
 
-while(1){
+    mmio_read = (uint8_t *)(mmio+READ_OFFSET);
 
-    // Write a value to the I/O register
-    //*((volatile unsigned int*)mmio) = 0x2000+127;
-    int8_t pos = *((volatile unsigned int *)mmio + 2);
-    printf("Read: %d\n", pos);
-    int8_t speed = (128 - pos)*2;
-    *((volatile unsigned int*)mmio) = 0x2000+speed;
-	
+    return (volatile unsigned int *)mmio;
 }
+
+int close_mem() {
     // Unmap the virtual memory
-    munmap(mmio, getpagesize());
-
-    // Close the /dev/mem device file
-    close(memfd);
-
+    munmap((void *)mmio, getpagesize());
     return 0;
 }
+
+
+
