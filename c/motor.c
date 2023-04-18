@@ -40,12 +40,11 @@ int motor_update(uint8_t motor_index){
 }
 
 
-int motor_setSpeed(uint8_t motor_index, int speed) {
+int set_motor_speed(uint8_t motor_index, int speed) {
     if(motor_index>=MAX_MOTORS){
         perror("Motor Index Out Of Range"); // Print an error message
-        return -1; // Return an error code
+        return -1;                          // Return an error code
     }
-
     if (speed >  127) speed =  127;
     if (speed < -127) speed = -127;
     if (speed >= 0) set_PL_register(MOTOR_WRITE_REG + motor_index,  speed);
@@ -78,7 +77,7 @@ int set_target_position(uint8_t motor_index, long target_position){
     return 0;
 }
 
-long get_motor_velocity(uint8_t motor_index){
+int get_motor_velocity(uint8_t motor_index){
     if(motor_index >= MAX_MOTORS){
         perror("Motor Index Out Of Range");
         return -1;

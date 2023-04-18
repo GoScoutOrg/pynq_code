@@ -23,14 +23,15 @@ int isr_init(){
 }
 
 int isr(int signum){
-    set_PL_register(0x50, watchdog_flag);
-    set_PL_register(0x80, 0xFF);
+    set_PL_register(WATCHDOG_REG, watchdog_flag);
+    set_PL_register(DEBUG_REG, 0xFF);
+
     motor_update(0);
 
     int difference = get_target_position(0) - get_motor_position(0);
-    //motor_setSpeed(0,(difference<<1) - 2*motor_velocity[0]);
-    motor_setSpeed(0, v);
-    set_PL_register(0x80, 0x00);
+    set_motor_speed(0, (KP * difference) -  ( KV * get_motor_velocity(0) ));
+
+    set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
     count++;
     return 0;

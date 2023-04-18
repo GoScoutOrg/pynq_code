@@ -15,7 +15,8 @@
 #define IOMEM_ADDRESS 0x41200000
 #define ADDRESS_OFFSET 8
 #define READ_OFFSET 2
-
+#define WATCHDOG_REG 0x50
+#define DEBUG_REG 0x80
 
 
 
