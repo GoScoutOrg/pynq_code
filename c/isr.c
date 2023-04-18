@@ -1,10 +1,7 @@
-//
-// Created by Tyler Bovenzi on 3/23/23.
-//
-
 #include "isr.h"
 
-
+static int count;
+static uint8_t watchdog_flag = 0;
 
 int isr_init(){
     struct sigaction sa;
@@ -22,20 +19,20 @@ int isr_init(){
     timer.it_value.tv_sec = 0;
     timer.it_value.tv_usec = 1000;
     setitimer(ITIMER_REAL, &timer, NULL);
-
-    target_pos = 0;
-
     return 0;
 }
 
 int isr(int signum){
-    *mmio=0x80FF;
-
+    set_PL_register(0x50, watchdog_flag);
+    set_PL_register(0x80, 0xFF);
     motor_update(0);
-    int difference = target_pos - motor_abs_pos[0];
-    motor_setSpeed((difference<<2) - motor_velocity[0]);
-    motor_setSpeed(0);
-    *mmio = 0x8000;
+
+    int difference = get_target_position(0) - get_motor_position(0);
+    //motor_setSpeed(0,(difference<<1) - 2*motor_velocity[0]);
+    motor_setSpeed(0, v);
+    set_PL_register(0x80, 0x00);
+    watchdog_flag = !watchdog_flag;
+    count++;
     return 0;
 
 }

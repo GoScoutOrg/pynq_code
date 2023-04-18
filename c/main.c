@@ -6,10 +6,12 @@
 #include "mmio.h"
 #include "isr.h"
 #include <signal.h>
+#include <stdio.h>
+#include <unistd.h>
 
-void sigint_handler(int sig) {
+void sigint_handler(int sig){
     printf("Received SIGINT signal\n");
-    if(mmio) *mmio = 0x2000;
+    if(mmio_is_valid()) set_PL_register(0x20, 0x00);
     exit(0);
 }
 
@@ -19,12 +21,8 @@ int main() {
     isr_init();
     set_led_status();
     set_brightness( 000, 000, 010);
-
     while(1){
-        target_pos = 500;
-//        sleep(1);
-//        target_pos = 100;
-//        sleep(1);
+
     }
 
     close_mem();

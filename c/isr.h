@@ -14,7 +14,6 @@
 #ifndef ROVERCORE_ISR_H
 #define ROVERCORE_ISR_H
 
-long target_pos;
 
 int isr_init();
 
