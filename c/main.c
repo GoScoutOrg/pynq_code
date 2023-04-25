@@ -23,8 +23,8 @@ int main() {
     set_led_status();
     set_brightness( 000, 000, 010);
     while(1){
-        scanf("%d", &num);
-        set_target_position(0, num);
+        //scanf("%d", &num);
+        //set_target_position(0, num);
 
     }
 

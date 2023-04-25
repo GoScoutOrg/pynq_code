@@ -20,7 +20,9 @@ int isr_init(){
     timer.it_value.tv_sec = 0;
     timer.it_value.tv_usec = 1000;
     setitimer(ITIMER_REAL, &timer, NULL);
+    set_target_position(0, 0);
     return 0;
+
 }
 
 int isr(int signum){
@@ -28,14 +30,12 @@ int isr(int signum){
     set_PL_register(DEBUG_REG, 0xFF);
 
     motor_update(0);
-    if(count == 2560){
-        int cur_target = get_target_position(0) + 1;
-        set_target_position(0, cur_target);
-        count = 0;
-    }
 
-    int difference = get_target_position(0) - get_motor_position(0);
-    set_motor_speed(0, (KP * difference) -  ( KV * get_motor_velocity(0) ));
+    long long cur_target = get_target_position(0) + (((long long)1<<24));
+    set_target_position(0, cur_target);
+
+    long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
+    set_motor_speed(0, ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) ));
 
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;

@@ -16,7 +16,7 @@
 #define HIGH_THRESH 206 //256-50
 #define LOW_THRESH 50
 
-#define KP 2
+#define KP 8
 #define KV 8
 
 int motor_update(uint8_t motor_index);
@@ -25,9 +25,9 @@ int set_motor_speed(uint8_t motor_index, int speed);
 
 long get_motor_position(uint8_t motor_index);
 
-long get_target_position(uint8_t motor_index);
+long long get_target_position(uint8_t motor_index);
 
-int set_target_position(uint8_t motor_index, long target_position);
+int set_target_position(uint8_t motor_index, long long target_position);
 
 int get_motor_velocity(uint8_t motor_index);
 

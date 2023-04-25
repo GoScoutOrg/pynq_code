@@ -1,7 +1,7 @@
 #include "motor.h" // Include the header file "motor.h"
 
 static long motor_abs_pos[MAX_MOTORS];
-static long motor_target_pos[MAX_MOTORS];
+static long long motor_target_pos[MAX_MOTORS];
 static int motor_velocity[MAX_MOTORS];
 
 static uint8_t motor_raw_pos[MAX_MOTORS];
@@ -60,7 +60,7 @@ long get_motor_position(uint8_t motor_index){
     return motor_abs_pos[motor_index];
 }
 
-long get_target_position(uint8_t motor_index){
+long long get_target_position(uint8_t motor_index){
     if(motor_index >= MAX_MOTORS){
         perror("Motor Index Out Of Range");
         return -1;
@@ -68,7 +68,7 @@ long get_target_position(uint8_t motor_index){
     return motor_target_pos[motor_index];
 }
 
-int set_target_position(uint8_t motor_index, long target_position){
+int set_target_position(uint8_t motor_index, long long target_position){
     if(motor_index >= MAX_MOTORS){
         perror("Motor Index Out Of Range");
         return -1;
