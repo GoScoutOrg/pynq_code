@@ -29,7 +29,8 @@ int isr(int signum){
 
     motor_update(0);
     if(count == 2560){
-        set_target_position(0, 1);
+        int cur_target = get_target_position(0) + 1;
+        set_target_position(0, cur_target);
         count = 0;
     }
 
