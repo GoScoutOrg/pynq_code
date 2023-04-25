@@ -1,6 +1,7 @@
 #include "isr.h"
 
-static int count;
+static uint16_t count = 0;
+static uint64_t total_count = 0;
 static uint8_t watchdog_flag = 0;
 
 int isr_init(){
@@ -27,13 +28,17 @@ int isr(int signum){
     set_PL_register(DEBUG_REG, 0xFF);
 
     motor_update(0);
+    if(count == 2560){
+        set_target_position(0, 1);
+        count = 0;
+    }
 
     int difference = get_target_position(0) - get_motor_position(0);
     set_motor_speed(0, (KP * difference) -  ( KV * get_motor_velocity(0) ));
 
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
-    count++;
+    count++;total_count++;
     return 0;
 
 }
