@@ -14,6 +14,7 @@
 #ifndef ROVERCORE_ISR_H
 #define ROVERCORE_ISR_H
 
+#define INCR_NUM 2 << 24
 
 int isr_init();
 

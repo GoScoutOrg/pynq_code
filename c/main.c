@@ -14,7 +14,7 @@ void sigint_handler(int sig){
     if(mmio_is_valid()) set_PL_register(0x20, 0x00);
     exit(0);
 }
-
+float error, last_error = 0.0, total = 0.0;
 int main() {
     int num;
     signal(SIGINT, sigint_handler);
