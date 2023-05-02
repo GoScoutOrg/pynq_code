@@ -21,8 +21,8 @@ int isr_init(){
     timer.it_value.tv_usec = 1000;
     setitimer(ITIMER_REAL, &timer, NULL);
     set_target_position(0, 0);
-    return 0;
 
+    return 0;
 }
 
 int isr(int signum){
@@ -40,6 +40,6 @@ int isr(int signum){
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
     count++;total_count++;
+    
     return 0;
-
 }

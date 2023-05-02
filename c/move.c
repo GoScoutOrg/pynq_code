@@ -9,7 +9,7 @@
 #include "isr.h"
 
 uint16_t ticks_to_distance(){
-    return WHEEL_DIAMETER/TICKSPERREV;
+    return WHEEL_DIAMETER/TICKS_PER_REV_6;
 }
 
 // uint16_t calc_circumference(){
@@ -17,10 +17,15 @@ uint16_t ticks_to_distance(){
 // }
 
 long get_distance(long ticks){
-    long distance = (ticks / TICKSPERREV) * (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
+    long distance = (ticks / TICKS_PER_REV_6) * (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
     return distance;
 }
 
-int get_velocity(){
-    return (INCR_NUM)/(.001 + 256);
+int distance_to_ticks(int distance){
+    return distance * TICKS_PER_REV_6 / (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
+
 }
+
+// int get_velocity(){
+//     return (INCR_NUM)/(.001 + 256);
+// }
