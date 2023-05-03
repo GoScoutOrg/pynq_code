@@ -26,6 +26,8 @@ int distance_to_ticks(int distance);
 float degrees_to_ticks(float degrees);
 
 
+void enter_distance();
+
 long get_distance(long ticks);
 int get_velocity();
 //uint16_t ticks_to_distance();
