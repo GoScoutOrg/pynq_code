@@ -39,7 +39,9 @@ int isr(int signum){
     
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
     printf("difference: %llu", difference);
-    set_motor_speed(0, ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) ));
+    long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
+    printf("speed: %llu\n", speed);
+    set_motor_speed(0, speed);
 
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
