@@ -49,7 +49,7 @@ int isr(int signum){
     //printf("difference: %llu\t", difference);
     long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
     //printf("speed: %llu\n", speed);
-    set_motor_speed(0, speed);
+    set_motor_speed(0, 0);
 
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
