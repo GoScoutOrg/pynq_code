@@ -33,10 +33,12 @@ int isr(int signum){
 
     motor_update(0);
 
-    long long cur_target = get_target_position(0) + (((long long)1<<24));
+    long long cur_target = get_target_position(0) + (((long long)2<<24));
     set_target_position(0, cur_target);
 
+    
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
+    printf("difference: %ll", difference);
     set_motor_speed(0, ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) ));
 
     set_PL_register(DEBUG_REG, 0x00);
