@@ -12,6 +12,8 @@
 #define TICKS_PER_REV_4 40                /*ticks per revolution*/
 #define GEAR_RATIO_4 172
 
+//172*40 will make it move the whole way around
+
 //6 wheel motors 116 gear ratio  numbers abover 
 // 4 motors for corners 40 ticks per rev, gear ratio 172:1 but for turning this is angular. 
 //these four motors will take an angle in degrees with 1 decimal point in range( +- 90). 
