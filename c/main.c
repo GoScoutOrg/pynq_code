@@ -74,6 +74,7 @@ int isr_init(){
 int main() {
     int distance_in_ticks;
     distance_in_ticks = enter_distance();
+    printf("given distance in ticks: %d\n", distance_in_ticks);
     signal(SIGINT, sigint_handler);
     mmio_init();
     isr_init();

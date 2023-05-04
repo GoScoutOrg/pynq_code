@@ -30,7 +30,6 @@ int distance_to_ticks(int distance){
 int enter_distance(int input_distance){
     printf("Enter a distance: ");
     scanf("%d", &input_distance);
-    printf("given distance: %d\n", input_distance);
     int ticks = distance_to_ticks(input_distance);
     return ticks;
 }
