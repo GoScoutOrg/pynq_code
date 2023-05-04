@@ -34,8 +34,8 @@ int isr(int signum){
 
     motor_update(0);
 
-    long long increment = ((long long)7<<25);
-    long long cur_target = get_target_position(0) + (increment);
+    long long increment = (7);
+    long long cur_target = get_target_position(0) + ((long long)increment<<25);
     set_target_position(0, cur_target);
     total_count += increment;
     printf("total count %llu\n", total_count);
