@@ -17,9 +17,11 @@
 static uint16_t count = 0;
 static uint64_t total_count = 0;
 static uint8_t watchdog_flag = 0;
+float error, last_error = 0.0, total = 0.0;
 //void sigint_handler(int sig);
 //int isr_init();
 //int isr(int signum);
+int distance_in_ticks;
 
 void sigint_handler(int sig){
     printf("Received SIGINT signal\n");
@@ -33,14 +35,14 @@ int isr(int signum){
 
     motor_update(0);
 
-    long long cur_target = get_target_position(0) + (((long long)2<<24));
+    long long cur_target = get_target_position(0) + (((long long)5<<30));
     set_target_position(0, cur_target);
 
     
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
-    printf("difference: %llu\t", difference);
+    //printf("difference: %llu\t", difference);
     long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
-    printf("speed: %llu\n", speed);
+    //printf("speed: %llu\n", speed);
     set_motor_speed(0, speed);
 
     set_PL_register(DEBUG_REG, 0x00);
@@ -74,7 +76,7 @@ int isr_init(){
 
 
 int main() {
-    int distance_in_ticks;
+
     distance_in_ticks = enter_distance();
     //printf("given distance in ticks: %d\n", distance_in_ticks);
     signal(SIGINT, sigint_handler);
