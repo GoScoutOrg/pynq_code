@@ -18,10 +18,8 @@ static uint16_t count = 0;
 static long long total_count = 0;
 static uint8_t watchdog_flag = 0;
 
-float error, last_error = 0.0, total = 0.0;
-//void sigint_handler(int sig);
-//int isr_init();
-//int isr(int signum);
+//float error, last_error = 0.0, total = 0.0;
+
 int distance_in_ticks;
 
 void sigint_handler(int sig){
@@ -40,6 +38,7 @@ int isr(int signum){
     long long cur_target = get_target_position(0) + (increment);
     set_target_position(0, cur_target);
     total_count += increment;
+    printf("total count %llu\n", total_count);
     if(total_count >= distance_in_ticks){
         increment = 0;
         printf("i finished\n");
@@ -54,7 +53,7 @@ int isr(int signum){
 
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
-    count++;total_count++;
+    count++;
     
     return 0;
 }
