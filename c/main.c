@@ -17,6 +17,7 @@
 static uint16_t count = 0;
 static long long total_count = 0;
 static uint8_t watchdog_flag = 0;
+static long long original_position = 0;
 
 //float error, last_error = 0.0, total = 0.0;
 
@@ -35,7 +36,7 @@ int isr(int signum){
     motor_update(0);
 
     long long increment = (7);
-    long long cur_target = get_target_position(0) + ((long long)increment<<25);
+    long long cur_target = get_target_position(0) + ((long long)increment<<23);
     set_target_position(0, cur_target);
     total_count += increment;
     printf("total count %llu\n", total_count);
@@ -86,6 +87,7 @@ int main() {
 
     distance_in_ticks = enter_distance();
     printf("given distance in ticks: %d\n", distance_in_ticks);
+    original_position = get_motor_position(0);
     signal(SIGINT, sigint_handler);
     mmio_init();
     isr_init();
