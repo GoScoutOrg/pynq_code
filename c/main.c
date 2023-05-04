@@ -79,7 +79,8 @@ int isr_init(){
     timer.it_value.tv_sec = 0;
     timer.it_value.tv_usec = 1000;
     setitimer(ITIMER_REAL, &timer, NULL);
-    set_target_position(0, 0);
+    set_target_position(0, get_motor_position(0)<<32);
+    //set_target_position(0, )
 
     return 0;
 }
