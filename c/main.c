@@ -15,8 +15,9 @@
 #include <sys/time.h>
 
 static uint16_t count = 0;
-static uint64_t total_count = 0;
+static long long total_count = 0;
 static uint8_t watchdog_flag = 0;
+
 float error, last_error = 0.0, total = 0.0;
 //void sigint_handler(int sig);
 //int isr_init();
@@ -35,9 +36,15 @@ int isr(int signum){
 
     motor_update(0);
 
-    long long cur_target = get_target_position(0) + (((long long)5<<30));
+    long long increment = ((long long)7<<30);
+    long long cur_target = get_target_position(0) + (increment);
     set_target_position(0, cur_target);
-
+    total_count += increment;
+    if(total_count >= distance_in_ticks){
+        increment = 0;
+        printf("i finished\n");
+        exit(EXIT_SUCCESS);
+    }
     
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
     //printf("difference: %llu\t", difference);
@@ -78,7 +85,7 @@ int isr_init(){
 int main() {
 
     distance_in_ticks = enter_distance();
-    //printf("given distance in ticks: %d\n", distance_in_ticks);
+    printf("given distance in ticks: %d\n", distance_in_ticks);
     signal(SIGINT, sigint_handler);
     mmio_init();
     isr_init();
