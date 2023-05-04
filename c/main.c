@@ -36,7 +36,7 @@ int isr(int signum){
 
     motor_update(0);
 
-    long long increment = ((long long)7<<30);
+    long long increment = ((long long)7<<25);
     long long cur_target = get_target_position(0) + (increment);
     set_target_position(0, cur_target);
     total_count += increment;
