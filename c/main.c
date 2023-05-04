@@ -38,7 +38,7 @@ int isr(int signum){
 
     
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
-    printf("difference: %ll", difference);
+    printf("difference: %llu", difference);
     set_motor_speed(0, ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) ));
 
     set_PL_register(DEBUG_REG, 0x00);
@@ -74,7 +74,7 @@ int isr_init(){
 int main() {
     int distance_in_ticks;
     distance_in_ticks = enter_distance();
-    printf("given distance in ticks: %d\n", distance_in_ticks);
+    //printf("given distance in ticks: %d\n", distance_in_ticks);
     signal(SIGINT, sigint_handler);
     mmio_init();
     isr_init();
