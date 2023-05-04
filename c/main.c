@@ -17,9 +17,9 @@
 static uint16_t count = 0;
 static uint64_t total_count = 0;
 static uint8_t watchdog_flag = 0;
-void sigint_handler(int sig);
-int isr_init();
-int isr(int signum);
+//void sigint_handler(int sig);
+//int isr_init();
+//int isr(int signum);
 
 void sigint_handler(int sig){
     printf("Received SIGINT signal\n");
