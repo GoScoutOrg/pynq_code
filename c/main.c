@@ -19,7 +19,7 @@ static long long total_count = 0;
 static uint8_t watchdog_flag = 0;
 static long long original_position = 0;
 
-//float error, last_error = 0.0, total = 0.0;
+long long init, error, last_error = 0.0, total = 0.0;
 
 int distance_in_ticks;
 
@@ -34,9 +34,9 @@ int isr(int signum){
     set_PL_register(DEBUG_REG, 0xFF);
 
     motor_update(0);
-
+    init = get_motor_position(0);
     long long increment = (7);
-    long long cur_target = get_target_position(0) + ((long long)increment<<32);
+    long long cur_target = get_target_position(0) + ((long long)increment<<24);
     set_target_position(0, cur_target);
     total_count += increment;
     //printf("total count %llu\n", total_count);
@@ -56,6 +56,8 @@ int isr(int signum){
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
     count++;
+    //error = 
+    total_count += get_motor_position(0) - init;
     
     return 0;
 }
