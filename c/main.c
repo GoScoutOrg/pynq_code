@@ -40,7 +40,8 @@ int isr(int signum){
     total_count += increment;
     printf("total count %llu\n", total_count);
     if(total_count >= distance_in_ticks){
-        increment = 0;
+        set_motor_speed(0, 0);
+
         printf("i finished\n");
         exit(EXIT_SUCCESS);
     }
@@ -49,7 +50,7 @@ int isr(int signum){
     //printf("difference: %llu\t", difference);
     long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
     //printf("speed: %llu\n", speed);
-    set_motor_speed(0, 0);
+    set_motor_speed(0, speed);
 
     set_PL_register(DEBUG_REG, 0x00);
     watchdog_flag = !watchdog_flag;
