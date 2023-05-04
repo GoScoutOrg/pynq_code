@@ -6,11 +6,11 @@
 
 /*this is for the 6 wheel motors*/
 #define TICKS_PER_REV_6 40                /*ticks per revolution*/
-#define GEAR_RATIO 116
+#define GEAR_RATIO_6 116
 
 /*this is for the 4 rotating motors*/
 #define TICKS_PER_REV_4 40                /*ticks per revolution*/
-#define GEAR_RATIO 172
+#define GEAR_RATIO_4 172
 
 //6 wheel motors 116 gear ratio  numbers abover 
 // 4 motors for corners 40 ticks per rev, gear ratio 172:1 but for turning this is angular. 
