@@ -19,12 +19,12 @@ uint16_t ticks_to_distance(){
 // }
 
 long get_distance(long ticks){
-    long distance = (ticks / TICKS_PER_REV_6) * (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
+    long distance = (ticks / TICKS_PER_REV_6) * (WHEEL_DIAMETER * M_PI / GEAR_RATIO_6);
     return distance;
 }
 
 int distance_to_ticks(int distance){
-    return distance * TICKS_PER_REV_6 / (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
+    return distance * TICKS_PER_REV_6 / (WHEEL_DIAMETER * M_PI / GEAR_RATIO_6);
 }
 
 int enter_distance(int input_distance){
