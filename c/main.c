@@ -39,13 +39,13 @@ int isr(int signum){
     long long cur_target = get_target_position(0) + ((long long)increment<<28);
     set_target_position(0, cur_target);
     total_count += increment;
-    printf("total count %llu\n", total_count);
-    if(total_count >= distance_in_ticks){
-        set_motor_speed(0, 0);
+    //printf("total count %llu\n", total_count);
+    // if(total_count >= distance_in_ticks){
+    //     set_motor_speed(0, 0);
 
-        printf("i finished\n");
-        exit(EXIT_SUCCESS);
-    }
+    //     printf("i finished\n");
+    //     exit(EXIT_SUCCESS);
+    // }
     
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
     //printf("difference: %llu\t", difference);
