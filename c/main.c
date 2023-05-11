@@ -21,6 +21,7 @@ static long long original_position = 0;
 long long increment = 0;
 
 long long init, error, last_error = 0.0, total = 0.0;
+long long isr_counter; //essentially time in ms
 
 int distance_in_ticks;
 
@@ -40,7 +41,7 @@ int isr(int signum){
     long long cur_target = get_target_position(0) + ((long long)increment<<30);
     set_target_position(0, cur_target);
     total_count += increment;
-    //printf("total count %llu\n", total_count);
+    printf("Current tick count %llu\t at time: %llu ms\n", total_count, isr_counter);
     if(total_count >= distance_in_ticks){
         //set_motor_speed(0, 0);
 
@@ -59,6 +60,7 @@ int isr(int signum){
     count++;
     //error = 
     total_count += get_motor_position(0) - init;
+    isr_counter ++; 
     
     return 0;
 }
@@ -97,7 +99,7 @@ int main() {
     isr_init();
     set_led_status();
     set_brightness( 000, 000, 010);
-    printf("starting\n");
+    //printf("starting\n");
     while(1){
         //scanf("%d", &num);
         //set_target_position(0, num);
