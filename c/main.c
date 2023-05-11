@@ -41,7 +41,8 @@ int isr(int signum){
     long long cur_target = get_target_position(0) + ((long long)increment<<30);
     set_target_position(0, cur_target);
     total_count += increment;
-    printf("Current tick count %llu\t at time: %llu ms\n", total_count, isr_counter);
+    //printf("Current tick count %llu\t at time: %llu ms\n", isr_counter, total_count);
+    printf("%llu %llu\n", isr_counter, total_count);
     if(total_count >= distance_in_ticks){
         //set_motor_speed(0, 0);
 
@@ -49,7 +50,7 @@ int isr(int signum){
         exit(EXIT_SUCCESS);
     }
     
-    long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30);
+    long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30);          
     //printf("difference: %llu\t", difference);
     long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
     //printf("speed: %llu\n", speed);
