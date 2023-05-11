@@ -42,7 +42,7 @@ int isr(int signum){
     set_target_position(0, cur_target);
     total_count += increment;
     //printf("Current tick count %llu\t at time: %llu ms\n", isr_counter, total_count);
-    printf("%llu %llu\n", isr_counter, total_count);
+    printf("%llu %llu %llu\n", isr_counter, total_count, init);
     if(total_count >= distance_in_ticks){
         //set_motor_speed(0, 0);
 
