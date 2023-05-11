@@ -5,12 +5,14 @@
 #define WHEEL_DIAMETER 124     /* mm diameter of the wheel*/
 
 /*this is for the 6 wheel motors*/
-#define TICKS_PER_REV_6 40                /*ticks per revolution*/
+#define TICKS_PER_REV_6 48                /*ticks per revolution*/
 #define GEAR_RATIO_6 116
 
 /*this is for the 4 rotating motors*/
 #define TICKS_PER_REV_4 40                /*ticks per revolution*/
 #define GEAR_RATIO_4 172
+
+//new one is 12 ticks per rev 
 
 //172*40 will make it move the whole way around
 
