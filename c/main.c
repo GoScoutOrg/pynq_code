@@ -40,7 +40,7 @@ int isr(int signum){
     long long cur_target = get_target_position(0) + ((long long)increment<<30);
     set_target_position(0, cur_target);
     total_count += increment;
-    printf("total count %llu\n", total_count);
+    //printf("total count %llu\n", total_count);
     if(total_count >= distance_in_ticks){
         //set_motor_speed(0, 0);
 
