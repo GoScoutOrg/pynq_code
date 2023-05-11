@@ -97,6 +97,7 @@ int main() {
     isr_init();
     set_led_status();
     set_brightness( 000, 000, 010);
+    printf("starting\n");
     while(1){
         //scanf("%d", &num);
         //set_target_position(0, num);
