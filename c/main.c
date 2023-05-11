@@ -48,7 +48,7 @@ int isr(int signum){
     //     exit(EXIT_SUCCESS);
     // }
     
-    long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<32);
+    long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30);
     //printf("difference: %llu\t", difference);
     long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
     //printf("speed: %llu\n", speed);
