@@ -14,6 +14,7 @@
 #ifndef ROVERCORE_ISR_H
 #define ROVERCORE_ISR_H
 
+int speed1;
 
 int isr_init();
 

@@ -11,7 +11,11 @@
 
 void sigint_handler(int sig){
     printf("Received SIGINT signal\n");
-    if(mmio_is_valid()) set_PL_register(0x20, 0x00);
+    if(mmio_is_valid()){
+        for(int i = 0; i<10; i++){
+            set_motor_speed(i, 0);
+        }
+    }
     exit(0);
 }
 
@@ -22,10 +26,9 @@ int main() {
     isr_init();
     set_led_status();
     set_brightness( 000, 000, 010);
+    speed1=0;
     while(1){
-        //scanf("%d", &num);
-        //set_target_position(0, num);
-
+        scanf("%d", &speed1);
     }
 
     close_mem();

@@ -6,7 +6,7 @@ CC = gcc
 CFLAGS = -Wall -Wextra
 
 # Source files
-SRCS = main.c mmio.c led.c isr.c motor.c
+SRCS = main.c mmio.c led.c isr.c motor.c steering_motor.c
 
 # Object files
 OBJS = $(SRCS:.c=.o)

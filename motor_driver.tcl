@@ -51,7 +51,6 @@ if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
 set list_projs [get_projects -quiet]
 if { $list_projs eq "" } {
    create_project project_1 myproj -part xc7z020clg400-1
-   set_property BOARD_PART www.digilentinc.com:pynq-z1:part0:1.0 [current_project]
 }
 
 
@@ -228,9 +227,10 @@ proc create_root_design { parentCell } {
 
 
   # Create ports
-  set EN [ create_bd_port -dir I -from 3 -to 0 EN ]
-  set MC [ create_bd_port -dir O -from 3 -to 0 MC ]
+  set EN [ create_bd_port -dir I -from 19 -to 0 -type data EN ]
+  set MC [ create_bd_port -dir O -from 19 -to 0 MC ]
   set ja [ create_bd_port -dir O -from 7 -to 0 ja ]
+  set jb [ create_bd_port -dir O -from 7 -to 0 jb ]
   set led4 [ create_bd_port -dir O -from 2 -to 0 led4 ]
   set led5_g [ create_bd_port -dir O led5_g ]
   set led5_r [ create_bd_port -dir O led5_r ]
@@ -293,7 +293,9 @@ proc create_root_design { parentCell } {
     CONFIG.PCW_APU_CLK_RATIO_ENABLE {6:2:1} \
     CONFIG.PCW_APU_PERIPHERAL_FREQMHZ {650} \
     CONFIG.PCW_CAN0_PERIPHERAL_CLKSRC {External} \
+    CONFIG.PCW_CAN0_PERIPHERAL_ENABLE {0} \
     CONFIG.PCW_CAN1_PERIPHERAL_CLKSRC {External} \
+    CONFIG.PCW_CAN1_PERIPHERAL_ENABLE {0} \
     CONFIG.PCW_CAN_PERIPHERAL_CLKSRC {IO PLL} \
     CONFIG.PCW_CAN_PERIPHERAL_VALID {0} \
     CONFIG.PCW_CLK0_FREQ {100000000} \
@@ -401,12 +403,20 @@ proc create_root_design { parentCell } {
     CONFIG.PCW_FPGA2_PERIPHERAL_FREQMHZ {50} \
     CONFIG.PCW_FPGA3_PERIPHERAL_FREQMHZ {50} \
     CONFIG.PCW_FPGA_FCLK0_ENABLE {1} \
+    CONFIG.PCW_GP0_EN_MODIFIABLE_TXN {1} \
+    CONFIG.PCW_GP0_NUM_READ_THREADS {4} \
+    CONFIG.PCW_GP0_NUM_WRITE_THREADS {4} \
+    CONFIG.PCW_GP1_EN_MODIFIABLE_TXN {1} \
+    CONFIG.PCW_GP1_NUM_READ_THREADS {4} \
+    CONFIG.PCW_GP1_NUM_WRITE_THREADS {4} \
     CONFIG.PCW_GPIO_BASEADDR {0xE000A000} \
     CONFIG.PCW_GPIO_EMIO_GPIO_ENABLE {0} \
     CONFIG.PCW_GPIO_HIGHADDR {0xE000AFFF} \
     CONFIG.PCW_GPIO_MIO_GPIO_ENABLE {1} \
     CONFIG.PCW_GPIO_MIO_GPIO_IO {MIO} \
     CONFIG.PCW_GPIO_PERIPHERAL_ENABLE {0} \
+    CONFIG.PCW_I2C0_PERIPHERAL_ENABLE {0} \
+    CONFIG.PCW_I2C1_PERIPHERAL_ENABLE {0} \
     CONFIG.PCW_I2C_RESET_ENABLE {1} \
     CONFIG.PCW_I2C_RESET_POLARITY {Active Low} \
     CONFIG.PCW_IMPORT_BOARD_PRESET {None} \
@@ -624,6 +634,7 @@ proc create_root_design { parentCell } {
     CONFIG.PCW_PCAP_PERIPHERAL_CLKSRC {IO PLL} \
     CONFIG.PCW_PCAP_PERIPHERAL_FREQMHZ {200} \
     CONFIG.PCW_PERIPHERAL_BOARD_PRESET {None} \
+    CONFIG.PCW_PJTAG_PERIPHERAL_ENABLE {0} \
     CONFIG.PCW_PLL_BYPASSMODE_ENABLE {0} \
     CONFIG.PCW_PRESET_BANK0_VOLTAGE {LVCMOS 3.3V} \
     CONFIG.PCW_PRESET_BANK1_VOLTAGE {LVCMOS 1.8V} \
@@ -666,18 +677,22 @@ proc create_root_design { parentCell } {
     CONFIG.PCW_SPI_PERIPHERAL_CLKSRC {IO PLL} \
     CONFIG.PCW_SPI_PERIPHERAL_VALID {0} \
     CONFIG.PCW_TPIU_PERIPHERAL_CLKSRC {External} \
+    CONFIG.PCW_TRACE_INTERNAL_WIDTH {2} \
+    CONFIG.PCW_TRACE_PERIPHERAL_ENABLE {0} \
     CONFIG.PCW_TTC0_CLK0_PERIPHERAL_CLKSRC {CPU_1X} \
     CONFIG.PCW_TTC0_CLK0_PERIPHERAL_DIVISOR0 {1} \
     CONFIG.PCW_TTC0_CLK1_PERIPHERAL_CLKSRC {CPU_1X} \
     CONFIG.PCW_TTC0_CLK1_PERIPHERAL_DIVISOR0 {1} \
     CONFIG.PCW_TTC0_CLK2_PERIPHERAL_CLKSRC {CPU_1X} \
     CONFIG.PCW_TTC0_CLK2_PERIPHERAL_DIVISOR0 {1} \
+    CONFIG.PCW_TTC0_PERIPHERAL_ENABLE {0} \
     CONFIG.PCW_TTC1_CLK0_PERIPHERAL_CLKSRC {CPU_1X} \
     CONFIG.PCW_TTC1_CLK0_PERIPHERAL_DIVISOR0 {1} \
     CONFIG.PCW_TTC1_CLK1_PERIPHERAL_CLKSRC {CPU_1X} \
     CONFIG.PCW_TTC1_CLK1_PERIPHERAL_DIVISOR0 {1} \
     CONFIG.PCW_TTC1_CLK2_PERIPHERAL_CLKSRC {CPU_1X} \
     CONFIG.PCW_TTC1_CLK2_PERIPHERAL_DIVISOR0 {1} \
+    CONFIG.PCW_TTC1_PERIPHERAL_ENABLE {0} \
     CONFIG.PCW_UART0_BASEADDR {0xE0000000} \
     CONFIG.PCW_UART0_BAUD_RATE {115200} \
     CONFIG.PCW_UART0_GRP_FULL_ENABLE {0} \
@@ -788,6 +803,7 @@ proc create_root_design { parentCell } {
     CONFIG.PCW_VALUE_SILVERSION {3} \
     CONFIG.PCW_WDT_PERIPHERAL_CLKSRC {CPU_1X} \
     CONFIG.PCW_WDT_PERIPHERAL_DIVISOR0 {1} \
+    CONFIG.PCW_WDT_PERIPHERAL_ENABLE {0} \
   ] $processing_system7_0
 
 
@@ -810,6 +826,7 @@ proc create_root_design { parentCell } {
   connect_bd_net -net Top_0_MC [get_bd_ports MC] [get_bd_pins Top_0/MC]
   connect_bd_net -net Top_0_data_out [get_bd_pins Top_0/data_out] [get_bd_pins axi_gpio_0/gpio2_io_i]
   connect_bd_net -net Top_0_ja [get_bd_ports ja] [get_bd_pins Top_0/ja]
+  connect_bd_net -net Top_0_jb [get_bd_ports jb] [get_bd_pins Top_0/jb]
   connect_bd_net -net Top_0_led4 [get_bd_ports led4] [get_bd_pins Top_0/led4]
   connect_bd_net -net Top_0_led5_g [get_bd_ports led5_g] [get_bd_pins Top_0/led5_g]
   connect_bd_net -net Top_0_led5_r [get_bd_ports led5_r] [get_bd_pins Top_0/led5_r]

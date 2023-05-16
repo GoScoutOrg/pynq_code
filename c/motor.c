@@ -60,6 +60,14 @@ long get_motor_position(uint8_t motor_index){
     return motor_abs_pos[motor_index];
 }
 
+char get_raw_pos(uint8_t motor_index){
+    if(motor_index >= MAX_MOTORS){
+        perror("Motor Index Out Of Range");
+        return -1;
+    }
+    return motor_raw_pos[motor_index];
+}
+
 long long get_target_position(uint8_t motor_index){
     if(motor_index >= MAX_MOTORS){
         perror("Motor Index Out Of Range");
