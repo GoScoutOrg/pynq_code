@@ -10,6 +10,9 @@
 #include "stdint.h"
 #include "motor.h"
 #include "mmio.h"
+#include "rover.h"
+#include "steering_motor.h"
+#include "led.h"
 
 #ifndef ROVERCORE_ISR_H
 #define ROVERCORE_ISR_H

@@ -16,6 +16,7 @@ void sigint_handler(int sig){
             set_motor_speed(i, 0);
         }
     }
+    set_brightness( 100, 000, 100);
     exit(0);
 }
 
@@ -25,7 +26,7 @@ int main() {
     mmio_init();
     isr_init();
     set_led_status();
-    set_brightness( 000, 000, 010);
+    set_brightness( 100, 100, 000);
     speed1=0;
     while(1){
         scanf("%d", &speed1);
