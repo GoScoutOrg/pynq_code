@@ -8,6 +8,23 @@
 #include "move.h"
 #include "isr.h"
 
+int entered_distance; 
+int current_distance;
+int entered_distance_in_ticks;
+
+
+// int get_distance(){
+//     return entered_distance;
+// }
+
+int update_distance(int update){
+    current_distance += update;
+}
+
+int get_distance_moved(){
+    return entered_distance;
+}
+
 
 
 uint16_t ticks_to_distance(){
@@ -27,11 +44,14 @@ int distance_to_ticks(int distance){
     return distance * TICKS_PER_REV_6 / (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
 }
 
-void enter_distance(int input_distance){
+int enter_distance(){
+    int input_distance;
     printf("Enter a distance: ");
     scanf("%d", &input_distance);
     printf("given distance: %d\n", input_distance);
+    entered_distance = input_distance;
     int ticks = distance_to_ticks(input_distance);
+    return 1;
 }
 
 int enter_speed_and_distance(int input_distance, long long * increment){
@@ -46,3 +66,5 @@ int enter_speed_and_distance(int input_distance, long long * increment){
     increment = &speed;
     return ticks;
 }
+
+int move_distance
