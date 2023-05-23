@@ -8,22 +8,17 @@
 #include "move.h"
 #include "isr.h"
 
-int entered_distance; 
-int current_distance;
-int entered_distance_in_ticks;
-int increment = 7;
-
-long long error;
-static long long ticks_moved_so_far = 0;
-long long isr_counter; //essentially time in ms
-
-
-// int get_distance(){
-//     return entered_distance;
-// }
 
 int update_distance(int update){
     current_distance += update;
+}
+
+int finished_moving(){
+    return done_moving;
+}
+
+void speed_up(){
+    increment += 100;
 }
 
 // int get_distance_moved(){
@@ -71,18 +66,17 @@ int enter_speed_and_distance(int input_distance, long long * increment){
 }
 
 int rover_move(){
-
-    long long init = get_motor_position(0);
-    //increment = 100;
+    done_moving = 0;
+    long long initial_position = get_motor_position(0);
     long long cur_target = get_target_position(0) + ((long long)increment<<30);
     set_target_position(0, cur_target);
     ticks_moved_so_far += increment;
 
-    printf("%llu %llu %llu\n", isr_counter, ticks_moved_so_far, init);
+    printf("%llu %llu %llu\n", isr_counter, ticks_moved_so_far, initial_position);
     if(ticks_moved_so_far >= distance_to_ticks(entered_distance)){
         //set_motor_speed(0, 0);
         printf("i finished\n");
-        return 1;
+        done_moving = 1;
     }
 
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30); 
@@ -90,8 +84,8 @@ int rover_move(){
     long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
     set_motor_speed(0, speed);
 
-    ticks_moved_so_far += get_motor_position(0) - init;
-    isr_counter ++; 
+    ticks_moved_so_far += get_motor_position(0) - initial_position;
+    isr_counter++; 
 
     return 0;
 }

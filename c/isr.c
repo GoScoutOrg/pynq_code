@@ -77,7 +77,8 @@ int isr(int signum) {
             }
             break;
         default:
-            if(rover_move() == 1){
+            rover_move();
+            if( finished_moving() == 1){
                 state = 15;
             }
             rover_steer_right(200);
