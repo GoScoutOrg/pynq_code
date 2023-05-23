@@ -4,6 +4,7 @@
 #include <stdint.h>
 #include "steering_motor.h"
 #include "motor.h"
+#include "move.h"
 
 #define RRS                     0x0
 #define REAR_RIGHT_STEERING     0x0

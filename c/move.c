@@ -34,6 +34,15 @@ void enter_distance(int input_distance){
     int ticks = distance_to_ticks(input_distance);
 }
 
-// int get_velocity(){
-//     return (INCR_NUM)/(.001 + 256);
-// }
+int enter_speed_and_distance(int input_distance, long long * increment){
+    int input_speed;
+    int speed;
+    printf("Enter a distance: ");
+    scanf("%d", &input_distance);
+    int ticks = distance_to_ticks(input_distance);
+    printf("Enter a speed: ");
+    scanf("%d", &input_speed);
+    speed = (input_distance/input_speed >> 3);
+    increment = &speed;
+    return ticks;
+}
