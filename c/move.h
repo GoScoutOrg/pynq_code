@@ -1,6 +1,9 @@
+
+
 #ifndef ROVERCORE_MOVE_H
 #define ROVERCORE_MOVE_H
 
+#include "motor.h"
 
 #define WHEEL_DIAMETER 124     /* mm diameter of the wheel*/
 
@@ -23,15 +26,13 @@
 //give a distance comand in mm in range(1, 1024) no fraction 
 int distance_to_ticks(int distance);
 
-float degrees_to_ticks(float degrees);
-
-
 int enter_distance();
+int enter_speed_and_distance(int input_distance, long long * increment);
+long ticks_to_distance(long ticks);
+int update_distance(int update);
 
-long get_distance(long ticks);
-int get_velocity();
-//uint16_t ticks_to_distance();
-// uint16_t calc_circumference();
+
+int rover_move();
 
 
 

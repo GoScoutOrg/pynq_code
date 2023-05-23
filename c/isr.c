@@ -70,9 +70,16 @@ int isr(int signum) {
                 state++;
             }
             break;
-        case 15:
 
+        case 15:
+            if(enter_distance() == 1){
+                state++;
+            }
+            break;
         default:
+            if(rover_move() == 1){
+                state = 15;
+            }
             rover_steer_right(200);
             if(count_ms >= 1000){
                 count_ms = 0;
