@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="68455609-3320-4c11-af93-c8a930b540bd" name="Changes" comment="optimization">
+      <change afterPath="$PROJECT_DIR$/rover.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/isr.c" beforeDir="false" afterPath="$PROJECT_DIR$/isr.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/isr.h" beforeDir="false" afterPath="$PROJECT_DIR$/isr.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/led.c" beforeDir="false" afterPath="$PROJECT_DIR$/led.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/led.h" beforeDir="false" afterPath="$PROJECT_DIR$/led.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mmio.c" beforeDir="false" afterPath="$PROJECT_DIR$/mmio.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mmio.h" beforeDir="false" afterPath="$PROJECT_DIR$/mmio.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motor.c" beforeDir="false" afterPath="$PROJECT_DIR$/motor.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/motor.h" beforeDir="false" afterPath="$PROJECT_DIR$/motor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/move.c" beforeDir="false" afterPath="$PROJECT_DIR$/move.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/move.h" beforeDir="false" afterPath="$PROJECT_DIR$/move.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rover.h" beforeDir="false" afterPath="$PROJECT_DIR$/rover.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/steering_motor.c" beforeDir="false" afterPath="$PROJECT_DIR$/steering_motor.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/steering_motor.h" beforeDir="false" afterPath="$PROJECT_DIR$/steering_motor.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/web.c" beforeDir="false" afterPath="$PROJECT_DIR$/web.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../load.py" beforeDir="false" afterPath="$PROJECT_DIR$/../load.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../motor_driver.bit" beforeDir="false" afterPath="$PROJECT_DIR$/../motor_driver.bit" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../motor_driver.tcl" beforeDir="false" afterPath="$PROJECT_DIR$/../motor_driver.tcl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../sds_trace_data.dat" beforeDir="false" afterPath="$PROJECT_DIR$/../sds_trace_data.dat" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../test.py" beforeDir="false" afterPath="$PROJECT_DIR$/../test.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2022" />
+    <option name="minorVersion" value="1.3" />
+  </component>
+  <component name="ProjectId" id="2NQReP8vxIkwuJEFV2KRp7HAcSr" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Volumes/xilinx/pynq_code/c&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="Unnamed" type="MAKEFILE_TARGET_RUN_CONFIGURATION" factoryName="Makefile" nameIsGenerated="true">
+      <makefile filename="$PROJECT_DIR$/Makefile" target="" workingDirectory="" arguments="">
+        <envs />
+      </makefile>
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="68455609-3320-4c11-af93-c8a930b540bd" name="Changes" comment="" />
+      <created>1679594414724</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1679594414724</updated>
+      <workItem from="1679594416347" duration="21426000" />
+      <workItem from="1681841826875" duration="4143000" />
+      <workItem from="1681846792219" duration="4485000" />
+      <workItem from="1682449715473" duration="83000" />
+      <workItem from="1682450281696" duration="7415000" />
+      <workItem from="1683653687739" duration="14306000" />
+      <workItem from="1683829997404" duration="24274000" />
+      <workItem from="1684436123309" duration="11325000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="optimization" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimization" />
+  </component>
+</project>
