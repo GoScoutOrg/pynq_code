@@ -4,6 +4,7 @@ static int count_ms = 0;
 static int state = 10;
 static uint64_t total_count = 120000;
 static uint8_t watchdog_flag = 0;
+int new_inc = 4;
 
 int isr_init(){
     struct sigaction sa;
@@ -43,11 +44,11 @@ int isr(int signum) {
             // if(enter_distance() == 1){
             //     state++;
             // }
-            state++;
+            state ++;
             break;
         case 11:
             rover_calibrate();
-            if(rover_is_calibrated()) state++;
+            if(rover_is_calibrated()) state = 15;
             count_ms = 0;
             break;
         case 12:
@@ -78,15 +79,17 @@ int isr(int signum) {
             }
             break;
         default:
+            //rover_steer_forward();
             rover_move();
             if( finished_moving() == 1){
                 state = 15;
             }
-            rover_steer_right(200);
-            if(count_ms >= 1000){
-                count_ms = 0;
-                state=12;
-            }
+            //rover_steer_right(200);
+            // if(count_ms >= 1000){
+            //     count_ms = 0;
+            //     state=12;
+            // }
+            //new_inc++;
             break;
     }
 
