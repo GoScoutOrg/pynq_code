@@ -1,7 +1,7 @@
 #include "isr.h"
 
 static int count_ms = 0;
-static int state = 10;
+static int state = 15;
 static uint64_t total_count = 120000;
 static uint8_t watchdog_flag = 0;
 int new_inc = 4;
