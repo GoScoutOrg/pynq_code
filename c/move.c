@@ -34,12 +34,12 @@ void speed_up(){
 // }
 
 long ticks_to_distance(long ticks){
-    long distance = (ticks / TICKS_PER_REV_6) * (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
+    long distance = (ticks / TICKS_PER_REV_6) * (WHEEL_DIAMETER * M_PI / GEAR_RATIO_6);
     return distance;
 }
 
 int distance_to_ticks(int distance){
-    return (distance * TICKS_PER_REV_6) / (WHEEL_DIAMETER * M_PI / GEAR_RATIO);
+    return (distance * TICKS_PER_REV_6) / (WHEEL_DIAMETER * M_PI / GEAR_RATIO_6);
 }
 
 int enter_distance(){
@@ -52,7 +52,7 @@ int enter_distance(){
     return 1;
 }
 
-int enter_speed_and_distance(int input_distance, long long * increment){
+int enter_speed_and_distance(int input_distance, long long * inc){
     int input_speed;
     int speed;
     printf("Enter a distance: ");
@@ -61,7 +61,7 @@ int enter_speed_and_distance(int input_distance, long long * increment){
     printf("Enter a speed: ");
     scanf("%d", &input_speed);
     speed = (input_distance/input_speed >> 3);
-    increment = &speed;
+    inc = &speed;
     return ticks;
 }
 
@@ -72,7 +72,7 @@ int rover_move(){
     set_target_position(0, cur_target);
     ticks_moved_so_far += increment;
 
-    printf("%llu %llu %llu\n", isr_counter, ticks_moved_so_far, initial_position);
+    //printf("%llu %llu %llu\n", isr_counter, ticks_moved_so_far, initial_position);
     if(ticks_moved_so_far >= distance_to_ticks(entered_distance)){
         //set_motor_speed(0, 0);
         printf("i finished\n");
@@ -82,7 +82,12 @@ int rover_move(){
     long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30); 
 
     long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
-    set_motor_speed(0, speed);
+    print("%llu", speed);
+    set_motor_speed(1, speed);
+    // set_motor_speed(3, speed);
+    // set_motor_speed(5, speed);
+    // set_motor_speed(7, speed);
+
 
     ticks_moved_so_far += get_motor_position(0) - initial_position;
     isr_counter++; 

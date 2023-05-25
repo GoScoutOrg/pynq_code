@@ -40,9 +40,10 @@ int isr(int signum) {
     switch (state){
         case 10:
             rover_init();
-            if(enter_distance() == 1){
-                state++;
-            }
+            // if(enter_distance() == 1){
+            //     state++;
+            // }
+            state++;
             break;
         case 11:
             rover_calibrate();
