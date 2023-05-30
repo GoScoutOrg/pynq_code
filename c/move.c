@@ -13,12 +13,12 @@ int MAX_SPEED = 130;
 int entered_distance; 
 int current_distance;
 int entered_distance_in_ticks;
-int increment = 1;
+int increment = 7;
 int last_speed;
 
 long long error;
 static long long ticks_moved_so_far = 0;
-long long isr_counter; //essentially time in ms
+long long time_in_ms; //essentially time in ms
 int done_moving = 0;
 
 
@@ -60,8 +60,8 @@ int enter_distance(){
     printf("Enter a distance: ");
     scanf("%d", &input_distance);
     entered_distance = input_distance;
-    int ticks = distance_to_ticks(input_distance);
-    printf("Given distance: %d in mm\t Distance in ticks: %d\n", input_distance, ticks);
+    entered_distance_in_ticks = distance_to_ticks(input_distance);
+    printf("Given distance: %d in mm\t Distance in ticks: %d\n", input_distance, entered_distance_in_ticks);
     return 1;
 }
 
@@ -79,46 +79,55 @@ int enter_speed_and_distance(int input_distance, long long * inc){
 }
 
 int rover_move(){
-    done_moving = 0;
+    long long difference;
+    long long speed;
     long long initial_position = get_motor_position(0);
     long long cur_target = get_target_position(0) + ((long long)increment<<24);
-    set_target_position(0, cur_target);
-    ticks_moved_so_far += increment;
-    int total_distance = distance_to_ticks(entered_distance);
 
-    //printf("%llu %llu %llu\n", isr_counter, ticks_moved_so_far, initial_position);
-    if(ticks_moved_so_far >= total_distance){
-        //set_motor_speed(0, 0);
-        //wait(2);
+    set_target_position(0, cur_target);
+
+    //int entered_distance_in_ticks = distance_to_ticks(entered_distance);
+    ticks_moved_so_far += increment;
+    done_moving = 0;
+    
+
+    //printf("%llu %llu %llu\n", time_in_ms, ticks_moved_so_far, initial_position);
+
+
+    //check if movement is complete
+    if(ticks_moved_so_far >= entered_distance_in_ticks){
         increment = 0;
         ticks_moved_so_far = 0;
-        isr_counter = 0;
+        time_in_ms = 0;
         printf("i finished\n");
         done_moving = 1;
     }
 
-    long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30); 
+    //calc the difference and speed
+    difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30); 
+    speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
+    // //top off speed at 130
+    // if(speed > MAX_SPEED){
+    //     speed = MAX_SPEED;
+    // }
 
-    long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
-    if(speed > MAX_SPEED){
-        speed = MAX_SPEED;
-    }
-
-
-    if(((total_distance - ticks_moved_so_far) < 500)&& (increment > 0)){
-        //printf("im deramping: %d distance left %d\n", increment, total_distance - ticks_moved_so_far);
+    //choose a point when to start decelerating 
+    if(((entered_distance_in_ticks - ticks_moved_so_far) < 500)&& (increment > 0)){
+        //printf("im deramping: %d distance left %d\n", increment, entered_distance_in_ticks - ticks_moved_so_far);
         //increment = increment - 1;
         
         if(MAX_SPEED > 20){
             MAX_SPEED -= 2;
             speed = MAX_SPEED;
         }
-        printf("deramp: %llu\t, %d\n", speed, MAX_SPEED);
+        printf("deramp: %llu\t, %d\t left: %d\n", speed, MAX_SPEED, entered_distance_in_ticks - ticks_moved_so_far);
 
-    }else if(increment < 7){
-        increment++;
     }
+    // else if(increment < 7){
+    //     increment++;
+    // }
     
+    //apply the speed to the motors
     set_motor_speed(1, -speed);
     set_motor_speed(3, -speed);
     set_motor_speed(5, speed);
@@ -126,7 +135,8 @@ int rover_move(){
     set_motor_speed(8, speed);
     set_motor_speed(9, -speed);
 
+    //update time and tick counters. 
     ticks_moved_so_far += get_motor_position(0) - initial_position;
-    isr_counter++; 
+    time_in_ms++; 
     return 0;
 }
