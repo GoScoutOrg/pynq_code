@@ -2,109 +2,34 @@
 // Created by Tyler Bovenzi on 3/23/23.
 //
 
-#include "stdint.h"
-#include "motor.h"
-
 #include "led.h"
 #include "mmio.h"
-//#include "isr.h"
-#include "move.h"
+#include "isr.h"
 #include <signal.h>
 #include <stdio.h>
 #include <unistd.h>
-#include <sys/time.h>
-
-static uint16_t count = 0;
-static long long total_count = 0;
-static uint8_t watchdog_flag = 0;
-static long long original_position = 0;
-long long increment = 0;
-
-long long init, error, last_error = 0.0, total = 0.0;
-long long isr_counter; //essentially time in ms
-
-int distance_in_ticks;
 
 void sigint_handler(int sig){
     printf("Received SIGINT signal\n");
-    if(mmio_is_valid()) set_PL_register(0x20, 0x00);
+    if(mmio_is_valid()){
+        for(int i = 0; i<10; i++){
+            set_motor_speed(i, 0);
+        }
+    }
+    set_brightness( 100, 000, 100);
     exit(0);
 }
 
-int isr(int signum){
-    set_PL_register(WATCHDOG_REG, watchdog_flag);
-    set_PL_register(DEBUG_REG, 0xFF);
-
-    motor_update(0);
-    init = get_motor_position(0);
-    increment = 100;
-    long long cur_target = get_target_position(0) + ((long long)increment<<30);
-    set_target_position(0, cur_target);
-    total_count += increment;
-    //printf("Current tick count %llu\t at time: %llu ms\n", isr_counter, total_count);
-    printf("%llu %llu %llu\n", isr_counter, total_count, init);
-    if(total_count >= distance_in_ticks){
-        //set_motor_speed(0, 0);
-
-        printf("i finished\n");
-        exit(EXIT_SUCCESS);
-    }
-    
-    long long difference = get_target_position(0) - ((long long)(get_motor_position(0))<<30);          
-    //printf("difference: %llu\t", difference);
-    long long speed = ((KP * difference)>>32) -  ( KV * get_motor_velocity(0) );
-    //printf("speed: %llu\n", speed);
-    set_motor_speed(0, speed);
-
-    set_PL_register(DEBUG_REG, 0x00);
-    watchdog_flag = !watchdog_flag;
-    count++;
-    //error = 
-    total_count += get_motor_position(0) - init;
-    isr_counter ++; 
-    
-    return 0;
-}
-
-int isr_init(){
-    struct sigaction sa;
-    struct itimerval timer;
-
-    // Install the ISR
-    sa.sa_handler = (void *)isr;
-    sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
-    sigaction(SIGALRM, &sa, NULL);
-
-    // Set the timer to trigger every 1ms
-    timer.it_interval.tv_sec = 0;
-    timer.it_interval.tv_usec = 1000;
-    timer.it_value.tv_sec = 0;
-    timer.it_value.tv_usec = 1000;
-    setitimer(ITIMER_REAL, &timer, NULL);
-    set_target_position(0, get_motor_position(0)<<32);
-    //set_target_position(0, )
-
-    return 0;
-}
-
-
-
 int main() {
-
-    distance_in_ticks = enter_distance();
-    printf("given distance in ticks: %d\n", distance_in_ticks);
-    original_position = get_motor_position(0);
+    int num;
     signal(SIGINT, sigint_handler);
     mmio_init();
     isr_init();
     set_led_status();
-    set_brightness( 000, 000, 010);
-    //printf("starting\n");
+    set_brightness( 100, 100, 000);
+    speed1=0;
     while(1){
-        //scanf("%d", &num);
-        //set_target_position(0, num);
-
+        scanf("%d", &speed1);
     }
 
     close_mem();

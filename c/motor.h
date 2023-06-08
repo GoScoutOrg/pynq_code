@@ -16,8 +16,10 @@
 #define HIGH_THRESH 206 //256-50
 #define LOW_THRESH 50
 
-#define KP 8
-#define KV 8
+#define KP 2
+#define KV 2
+
+char get_raw_pos(uint8_t motor_index);
 
 int motor_update(uint8_t motor_index);
 

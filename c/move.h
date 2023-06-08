@@ -1,20 +1,21 @@
+
+
 #ifndef ROVERCORE_MOVE_H
 #define ROVERCORE_MOVE_H
 
+#include "motor.h"
+
+//116 *12 =1392
 
 #define WHEEL_DIAMETER 124     /* mm diameter of the wheel*/
 
 /*this is for the 6 wheel motors*/
-#define TICKS_PER_REV_6 48                /*ticks per revolution*/
+#define TICKS_PER_REV_6 12                /*ticks per revolution*/
 #define GEAR_RATIO_6 116
 
 /*this is for the 4 rotating motors*/
 #define TICKS_PER_REV_4 40                /*ticks per revolution*/
 #define GEAR_RATIO_4 172
-
-//new one is 12 ticks per rev 
-
-//172*40 will make it move the whole way around
 
 //6 wheel motors 116 gear ratio  numbers abover 
 // 4 motors for corners 40 ticks per rev, gear ratio 172:1 but for turning this is angular. 
@@ -22,20 +23,18 @@
 //research how to go from degrees to ticks 20degrees/172*40ticks
 
 
-
-
 //give a distance comand in mm in range(1, 1024) no fraction 
 int distance_to_ticks(int distance);
 
-float degrees_to_ticks(float degrees);
-
-
 int enter_distance();
+int enter_speed_and_distance(int input_distance, long long * inc);
+long ticks_to_distance(long ticks);
+int update_distance(int update);
+int finished_moving();
+int rover_test();
 
-long get_distance(long ticks);
-int get_velocity();
-//uint16_t ticks_to_distance();
-// uint16_t calc_circumference();
+
+int rover_move();
 
 
 
